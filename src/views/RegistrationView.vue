@@ -1,29 +1,34 @@
 <template>
   <v-container>
     <ScreenOverlay :show="overlay" />
-
     <v-row justify="center" class="mt-8">
-      <v-col lg="8" md="8" sm="12">
+      <v-col lg="6" md="8" sm="12">
         <v-alert :type="message.type" v-model="message.show">{{
           message.text
         }}</v-alert>
 
         <v-card class="text-left">
-          <v-form ref="loginForm">
-            <v-card-title> Bem vindo </v-card-title>
+          <v-form ref="registerForm">
+            <v-card-title> Cadastre-se </v-card-title>
             <v-card-text
-              >Informe abaixo suas credenciais de acesso
+              >Preencha os campos abaixo para criar seu login de acesso
+
+              <v-text-field
+                label="Nome"
+                v-model="user.name"
+                class="mt-3"
+                :rules="[rules.required]"
+              ></v-text-field>
 
               <v-text-field
                 label="E-mail"
                 v-model="user.email"
                 :rules="[rules.required]"
-                class="mt-3"
               ></v-text-field>
 
               <v-text-field
-                type="password"
                 label="Senha"
+                type="password"
                 v-model="user.password"
                 :rules="[rules.required]"
               ></v-text-field>
@@ -31,11 +36,10 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  Faça seu cadastro
-                  <router-link to="/registration">aqui</router-link>
+                  <router-link to="/">Voltar para o login</router-link>
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn @click="userLogin()">Entrar</v-btn>
+                  <v-btn @click="userRegistration()">Registrar</v-btn>
                 </v-col>
               </v-row>
             </v-card-actions>
@@ -53,14 +57,15 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: { ScreenOverlay },
-  name: "HomeView",
-  data: () => {
+  name: "RegistrationPage",
+  data: function () {
     return {
-      overlay: false,
       user: {
+        name: "",
         email: "",
         password: "",
       },
+      overlay: false,
       message: {
         type: "error",
         text: "asd asda",
@@ -72,16 +77,17 @@ export default defineComponent({
     };
   },
   methods: {
-    async userLogin() {
+    async userRegistration() {
       this.overlay = true;
       this.message.show = false;
       this.message.type = "error";
 
       let form_data = new FormData();
+      form_data.append("name", this.user.name);
       form_data.append("email", this.user.email);
       form_data.append("password", this.user.password);
 
-      fetch("http://localhost:8080/api/login", {
+      fetch("http://localhost:8080/api/register", {
         method: "POST",
         body: form_data,
       })
@@ -94,18 +100,9 @@ export default defineComponent({
           this.message.text = data.message;
           this.message.show = true;
 
-          if (data.authorization != undefined) {
-            const userToken: string = data.authorization.token;
-
-            localStorage.setItem("token", userToken);
-          }
-
           setTimeout(() => {
-            if (data.authorization != undefined) {
-              this.$router.push("dashboard");
-            }
-            // const form_ref: any = this.$refs.loginForm;
-            // form_ref.reset();
+            const form_ref: any = this.$refs.registerForm;
+            form_ref.reset();
 
             this.overlay = false;
           }, 2000);

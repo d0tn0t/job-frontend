@@ -43,6 +43,22 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-category",
         component: () => import("@/views/dashboard/EditCategory.vue"),
       },
+
+      {
+        path: "add-product",
+        name: "add-product",
+        component: () => import("@/views/dashboard/AddProduct.vue"),
+      },
+      {
+        path: "list-product",
+        name: "list-product",
+        component: () => import("@/views/dashboard/ListProduct.vue"),
+      },
+      {
+        path: "edit-product/:id",
+        name: "edit-product",
+        component: () => import("@/views/dashboard/EditProduct.vue"),
+      },
     ],
   },
 ];

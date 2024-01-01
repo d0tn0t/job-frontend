@@ -1,6 +1,13 @@
-# job-test
+# Documentação do sistema - Front-end
 
-## Project setup
+Essa API foi criada de acordo com os requisitos do teste, que seguem:
+- VueJS (versão 3)
+- Vuetify 3 (framework CSS para componentes)
+
+
+**Antes de seguir os próximos passos, inicie o backend**
+
+## Setup
 ```
 yarn install
 ```
@@ -19,6 +26,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

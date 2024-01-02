@@ -55,12 +55,9 @@
 </template>
 
 <script lang="ts">
-import ScreenOverlay from "@/components/Overlay.vue";
-
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { ScreenOverlay },
   name: "HomeView",
   data: () => {
     return {

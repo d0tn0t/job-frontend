@@ -9,7 +9,10 @@
 
         <v-card class="text-left">
           <v-form ref="registerForm">
-            <v-card-title> Cadastre-se </v-card-title>
+            <v-card-title>
+              <v-icon icon="mdi-account-plus"></v-icon>
+              Cadastre-se
+            </v-card-title>
             <v-card-text
               >Preencha os campos abaixo para criar seu login de acesso
 
@@ -36,10 +39,17 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  <router-link to="/">Voltar para o login</router-link>
+                  <v-btn size="x-small" to="/" prepend-icon="mdi-arrow-left">
+                    Voltar ao login</v-btn
+                  >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn @click="userRegistration()">Registrar</v-btn>
+                  <v-btn
+                    variant="elevated"
+                    prepend-icon="mdi-content-save"
+                    @click="userRegistration()"
+                    >Registrar</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-card-actions>

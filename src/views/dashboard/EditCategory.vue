@@ -24,10 +24,20 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  <v-btn to="/dashboard/list-category">Voltar</v-btn>
+                  <v-btn
+                    size="x-small"
+                    prepend-icon="mdi-arrow-left"
+                    to="/dashboard/list-category"
+                    >Voltar a tela inicial</v-btn
+                  >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn @click="updateCategory()">Atualizar</v-btn>
+                  <v-btn
+                    variant="elevated"
+                    prepend-icon="mdi-content-save"
+                    @click="updateCategory()"
+                    >Atualizar</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-card-actions>

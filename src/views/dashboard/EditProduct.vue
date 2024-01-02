@@ -10,9 +10,9 @@
 
         <v-card class="text-left">
           <v-form ref="categoryForm">
-            <v-card-title> Editar uma categoria </v-card-title>
+            <v-card-title> Editar um produto </v-card-title>
             <v-card-text
-              >Altere as informações da categoria de produto
+              >Altere as informações do produto
 
               <v-row dense>
                 <v-col>
@@ -49,8 +49,9 @@
                   <v-text-field
                     label="Preço"
                     v-model="product.price"
-                    :rules="[rules.required, rules.money]"
+                    :rules="[rules.required]"
                     prepend-inner-icon="mdi-cash"
+                    @blur="formatMoney()"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -61,6 +62,7 @@
                     label="Categoria"
                     :items="categories"
                     v-model="product.category_id"
+                    :rules="[rules.required]"
                     item-title="name"
                     item-value="id"
                   ></v-select>
@@ -76,6 +78,7 @@
                     label="Imagem do produto"
                     v-model="product.image"
                     @change="onFileChange"
+                    :rules="[rules.required]"
                   ></v-file-input>
                 </v-col>
               </v-row>
@@ -83,15 +86,26 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  <v-btn size="x-small" to="/dashboard/principal"
+                  <v-btn
+                    size="x-small"
+                    to="/dashboard/principal"
+                    prepend-icon="mdi-arrow-left"
                     >Voltar a tela inicial</v-btn
                   >
-                  <v-btn size="x-small" to="/dashboard/list-product"
-                    >Ir para a lista de produtos</v-btn
+                  <v-btn
+                    size="x-small"
+                    to="/dashboard/list-product"
+                    prepend-icon="mdi-clipboard-multiple"
+                    >Lista de produtos</v-btn
                   >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn @click="updateProduct()">Atualizar</v-btn>
+                  <v-btn
+                    variant="elevated"
+                    @click="updateProduct()"
+                    prepend-icon="mdi-content-save"
+                    >Atualizar</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-card-actions>
@@ -166,7 +180,17 @@ export default defineComponent({
           this.product.name = data.product.name;
           this.product.description = data.product.description;
           this.product.validity = data.product.validity;
-          this.product.price = data.product.price;
+
+          let currency = new Intl.NumberFormat("pt-BR", {
+            style: "decimal",
+            currency: "BRL",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+          this.product.price = currency.format(
+            Number.parseFloat(data.product.price)
+          );
+
           this.product.category_id = data.product.category.id;
 
           this.remote_image =
@@ -223,9 +247,13 @@ export default defineComponent({
       form_data.append("name", this.product.name);
       form_data.append("description", this.product.description);
       form_data.append("validity", this.product.validity);
+
       form_data.append("price", this.product.price.replace(",", "."));
       form_data.append("category_id", String(this.product.category_id));
-      form_data.append("image", this.product.image[0]);
+
+      if (this.product.image != null) {
+        form_data.append("image", this.product.image[0]);
+      }
       form_data.append("_method", "PATCH");
 
       fetch("http://localhost:8080/api/product/" + product_id, {
@@ -252,6 +280,20 @@ export default defineComponent({
     onFileChange(e: any) {
       const file = e.target.files[0];
       this.remote_image = URL.createObjectURL(file);
+    },
+    formatMoney() {
+      let currency = new Intl.NumberFormat("pt-BR", {
+        style: "decimal",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+      let new_curr = currency.format(
+        Number.parseFloat(this.product.price.replace(",", "."))
+      );
+
+      this.product.price = String(new_curr);
     },
   },
 });

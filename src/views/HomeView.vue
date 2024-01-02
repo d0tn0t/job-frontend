@@ -1,7 +1,5 @@
 <template>
   <v-container>
-    <ScreenOverlay :show="overlay" />
-
     <v-row justify="center" class="mt-8">
       <v-col lg="8" md="8" sm="12">
         <v-alert :type="message.type" v-model="message.show">{{
@@ -31,11 +29,21 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  Faça seu cadastro
-                  <router-link to="/registration">aqui</router-link>
+                  <v-btn
+                    size="x-small"
+                    to="/registration"
+                    prepend-icon="mdi-account-plus"
+                    >Cadastre-se aqui</v-btn
+                  >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn @click="userLogin()">Entrar</v-btn>
+                  <v-btn
+                    variant="elevated"
+                    prepend-icon="mdi-login"
+                    type="submit"
+                    @click="userLogin()"
+                    >Entrar</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-card-actions>

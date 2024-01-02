@@ -10,7 +10,10 @@
 
         <v-card class="text-left">
           <v-form ref="categoryForm">
-            <v-card-title> Adicionar novo produto </v-card-title>
+            <v-card-title>
+              <v-icon icon="mdi-clipboard"></v-icon>
+              Adicionar novo produto
+            </v-card-title>
             <v-card-text
               >Insira abaixo as informações do novo produto
 
@@ -51,6 +54,7 @@
                     v-model="product.price"
                     :rules="[rules.required, rules.money]"
                     prepend-inner-icon="mdi-cash"
+                    @blur="formatMoney()"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -83,15 +87,24 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  <v-btn size="x-small" to="principal"
+                  <v-btn
+                    size="x-small"
+                    to="principal"
+                    prepend-icon="mdi-arrow-left"
                     >Voltar a tela inicial</v-btn
                   >
-                  <v-btn size="x-small" to="list-product"
-                    >Ir para a lista de produtos</v-btn
+                  <v-btn
+                    size="x-small"
+                    to="list-product"
+                    prepend-icon="mdi-clipboard-multiple"
+                    >Lista de produtos</v-btn
                   >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn variant="elevated" @click="addProduct()"
+                  <v-btn
+                    variant="elevated"
+                    @click="addProduct()"
+                    prepend-icon="mdi-content-save"
                     >Registrar</v-btn
                   >
                 </v-col>
@@ -133,7 +146,7 @@ export default defineComponent({
         category_id: "",
         image: ref(),
       },
-      remote_image: "",
+      remote_image: "https://placehold.co/300x200?text=Imagem",
       message: {
         type: "error",
         text: "",
@@ -232,6 +245,20 @@ export default defineComponent({
       const file = e.target.files[0];
       console.log(file);
       this.remote_image = URL.createObjectURL(file);
+    },
+    formatMoney() {
+      let currency = new Intl.NumberFormat("pt-BR", {
+        style: "decimal",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+      let new_curr = currency.format(
+        Number.parseFloat(this.product.price.replace(",", "."))
+      );
+
+      this.product.price = String(new_curr);
     },
   },
 });

@@ -9,7 +9,10 @@
         }}</v-alert>
 
         <v-card class="text-left">
-          <v-card-title> Lista de produtos </v-card-title>
+          <v-card-title>
+            <v-icon icon="mdi-clipboard-multiple"></v-icon>
+            Lista de produtos
+          </v-card-title>
           <v-card-text>
             <v-data-table :headers="headers" :items="products">
               <template v-slot:[`item.actions`]="{ item }">
@@ -30,11 +33,19 @@
             </v-data-table>
           </v-card-text>
           <v-card-actions>
-            <v-btn size="x-small" variant="text" to="/dashboard/principal"
+            <v-btn
+              size="x-small"
+              variant="text"
+              to="/dashboard/principal"
+              prepend-icon="mdi-arrow-left"
               >Voltar a tela inicial</v-btn
             >
-            <v-btn size="x-small" variant="text" to="/dashboard/add-product"
-              >Adicionar novo produto</v-btn
+            <v-btn
+              size="x-small"
+              variant="text"
+              to="/dashboard/add-product"
+              prepend-icon="mdi-clipboard-plus"
+              >Adicionar produto</v-btn
             >
           </v-card-actions>
         </v-card>

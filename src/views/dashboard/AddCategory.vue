@@ -10,7 +10,10 @@
 
         <v-card class="text-left">
           <v-form ref="categoryForm">
-            <v-card-title> Adicionar nova categoria </v-card-title>
+            <v-card-title>
+              <v-icon icon="mdi-tag-plus"></v-icon>
+              Adicionar nova categoria
+            </v-card-title>
             <v-card-text
               >Informe abaixo o nome da categoria de produto
 
@@ -24,15 +27,24 @@
             <v-card-actions>
               <v-row>
                 <v-col>
-                  <v-btn size="x-small" to="principal"
+                  <v-btn
+                    size="x-small"
+                    to="principal"
+                    prepend-icon="mdi-arrow-left"
                     >Voltar a tela inicial</v-btn
                   >
-                  <v-btn size="x-small" to="list-category"
-                    >Ir para a lista de categorias</v-btn
+                  <v-btn
+                    size="x-small"
+                    to="list-category"
+                    append-icon="mdi-arrow-right"
+                    >Lista de categorias</v-btn
                   >
                 </v-col>
                 <v-col class="text-right">
-                  <v-btn variant="elevated" @click="addCategory()"
+                  <v-btn
+                    variant="elevated"
+                    @click="addCategory()"
+                    prepend-icon="mdi-content-save"
                     >Registrar</v-btn
                   >
                 </v-col>

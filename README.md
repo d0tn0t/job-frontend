@@ -7,22 +7,11 @@ Essa API foi criada de acordo com os requisitos do teste, que seguem:
 
 **Antes de seguir os próximos passos, inicie o backend**
 
-## Setup
+## Inicie o serviço do front-end com o comando
 ```
-yarn install
+docker-compose up -d
 ```
-
-### Compiles and hot-reloads for development
+O sistema será acessivel através do endereço:
 ```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+http://localhost:8088/
 ```

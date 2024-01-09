@@ -2,7 +2,7 @@ version: '3'
 
 services:
   node:
-    image: node:17
+    image: job-test-front
     ports:
       - '8088:8088'
     volumes:

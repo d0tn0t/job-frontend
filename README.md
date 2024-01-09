@@ -7,10 +7,16 @@ Essa API foi criada de acordo com os requisitos do teste, que seguem:
 
 **Antes de seguir os próximos passos, inicie o backend**
 
-## Inicie o serviço do front-end com o comando
+## Faça o build da imagem do container:
+```
+docker build -t job-test-front .
+```
+
+Após a conclusão da etapa anterior, execute o comando abaixo para iniciar o serviço do front:
 ```
 docker-compose up -d
 ```
+
 O sistema será acessivel através do endereço:
 ```
 http://localhost:8088/
